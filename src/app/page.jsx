@@ -7,24 +7,21 @@ const handleClick = () => {
 };
 
 Home.defaultProps = {
-  title: '¡Bienvenido!',
-  subtitle: '¿Qué quieres hacer hoy?'
-  
+  title: '¿Qué quieres hacer?',
 }
 
 export default function Home(props) {
   return (
     <>
-      <div className="flex items-center justify-center ">
-        <div className="mt-20 flex">
-          <h1 className="font-bold w-auto">{props.title}</h1>
+      <section className="flex flex-col items-center ">
+          <h1 className="mt-20 mb-7 font-bold w-auto text-5xl">{props.title}</h1>
+          <div className="w-96 mb-12 h-px border border-t border-solid border-gray-line p-0 mx-auto"></div>
+        <div className="flex flex-col gap-5 mb-5">
+          <Button texto="Sesión de estudio o trabajo" onClick={handleClick} />
+          <Button texto="Sesión de lectura" onClick={handleClick} />
+          <Button texto="Ver estadísticas" onClick={handleClick} />
         </div>
-        <div className="flex">
-          <Button texto="Desarrollo de Videojuegos" onClick={handleClick} />
-        </div>
-        
-      </div>
-      
+      </section>
     </>
     )
 }
