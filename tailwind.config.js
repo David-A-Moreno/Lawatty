@@ -19,7 +19,9 @@ module.exports = {
         'blue-text-button': '#2B78E4',
         'hover-color-button': '#C1D7F6',
         'click-color-button': '#72ABFA',
-        'purple-text': '#2C2738'
+        'purple-text': '#2C2738',
+        'hover-color-button-back': '#256CD0',
+        'click-color-button-back': '#205DB2 '
       },
       
   },
