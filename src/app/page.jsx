@@ -4,6 +4,7 @@ import Button from "./components/button.jsx"
 import ButtonBack from "./components/buttonBack.jsx";
 import { useState } from 'react';
 import { INFORMATION } from "./utilities/interfaceInformation.js";
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
 
@@ -16,6 +17,8 @@ export default function Home() {
   const goBackButton = INFORMATION[currentInfo].goBackButton;
 
   const lastInterface = INFORMATION[currentInfo].lastInteface;
+
+  const router = useRouter();
 
   const setGoBackButton = () => {
     if (goBackButton) {
@@ -80,11 +83,27 @@ export default function Home() {
               <Button key={index} texto={button.optionTitle} 
               onClick={
                 () => {
-                  if (button.nextInterface != 30) {
+                  if (currentInfo == 0) {
+                    if (index == 1 || index == 2) {
+                      router.push(button.nextInterface);
+                    }
+                    else {
+                      setCurrentInfo(button.nextInterface);
+                    }
+                  }
+                  else if (currentInfo == 1) {
+                    if (index == 2) {
+                      router.push(button.nextInterface);
+                    }
+                    else {
+                      setCurrentInfo(button.nextInterface);
+                    }
+                  }
+                  else if (currentInfo == 4) {
                     setCurrentInfo(button.nextInterface);
                   }
                   else {
-                    calculate(index);
+                    router.push(button.nextInterface);
                   }
                 }} />
             ))}

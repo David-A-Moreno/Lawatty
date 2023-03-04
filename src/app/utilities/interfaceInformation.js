@@ -9,11 +9,11 @@ export const INFORMATION = [
             },
             {
                 optionTitle: "Sesión de lectura",
-                nextInterface: 0
+                nextInterface: '/SetTime'
             },
             {
                 optionTitle: "Ver estadísticas",
-                nextInterface: 0
+                nextInterface: '/statistics'
             },
         ],
         goBackButton: false,
@@ -32,7 +32,7 @@ export const INFORMATION = [
             },
             {
                 optionTitle: "Estudio inglés",
-                nextInterface: 1
+                nextInterface: '/SetTime'
             },
             {
                 optionTitle: "Proyectos personales",
@@ -47,11 +47,11 @@ export const INFORMATION = [
         buttons: [
             {
                 optionTitle: "Alto",
-                nextInterface: 2
+                nextInterface: '/SetTime'
             },
             {
                 optionTitle: "Intermedio o bajo",
-                nextInterface: 2
+                nextInterface: '/SetTime'
             },
         ],
         goBackButton: true,
@@ -62,11 +62,11 @@ export const INFORMATION = [
         buttons: [
             {
                 optionTitle: "Alto o intermedio",
-                nextInterface: 3
+                nextInterface: '/SetTime'
             },
             {
                 optionTitle: "Bajo",
-                nextInterface: 3
+                nextInterface: '/SetTime'
             },
         ],
         goBackButton: true,
@@ -93,11 +93,11 @@ export const INFORMATION = [
         buttons: [
             {
                 optionTitle: "Estudio o investigación",
-                nextInterface: 5
+                nextInterface: '/SetTime'
             },
             {
                 optionTitle: "Práctica",
-                nextInterface: 5
+                nextInterface: '/SetTime'
             },
             
         ],
