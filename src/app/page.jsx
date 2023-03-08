@@ -72,7 +72,7 @@ export default function Home() {
 
   return (
     <>
-        <div className="flex justify-start mt-10">
+        <div className="flex justify-start mt-10 ml-8">
             {setGoBackButton()}
         </div>
         <section className="flex flex-col items-center ">

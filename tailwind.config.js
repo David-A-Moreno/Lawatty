@@ -21,7 +21,8 @@ module.exports = {
         'click-color-button': '#72ABFA',
         'purple-text': '#2C2738',
         'hover-color-button-back': '#256CD0',
-        'click-color-button-back': '#205DB2 '
+        'click-color-button-back': '#205DB2',
+        'sky-blue': '#7A96BD'
       },
       
   },
