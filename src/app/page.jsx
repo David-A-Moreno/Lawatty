@@ -5,8 +5,12 @@ import ButtonBack from "./components/buttonBack.jsx";
 import { useState } from 'react';
 import { INFORMATION } from "./utilities/interfaceInformation.js";
 import { useRouter } from 'next/navigation';
+import { useSelector, useDispatch } from "react-redux";
+import { setLastInterface, setSessionTime, setCurrentInfoPrincipalPage } from "./features/answers/answersSlice.js";
 
 export default function Home() {
+
+  //const currentInfo = useSelector(state => state.answers.currentInfoPrincipalPage);
 
   const [currentInfo, setCurrentInfo] = useState(0);
 
@@ -16,15 +20,31 @@ export default function Home() {
 
   const goBackButton = INFORMATION[currentInfo].goBackButton;
 
+  const oldInterface = useSelector(state => state.answers.lastInterface);
+
   const lastInterface = INFORMATION[currentInfo].lastInteface;
 
   const router = useRouter();
+
+  const dispatch = useDispatch();
+
+  const sessionSystem = useSelector(state => state.answers.sessionTime)
 
   const setGoBackButton = () => {
     if (goBackButton) {
       return <ButtonBack texto={'Volver'} onClick={() => {setCurrentInfo(lastInterface)}}/>;
     }
     return <div className="ml-8 w-32 h-12"></div>;
+  }
+
+  const changeInterface = (nextInterface, isNewPage) => {
+    if (isNewPage) {
+      router.push(nextInterface);
+    } else {
+      //dispatch(setCurrentInfoPrincipalPage(nextInterface));
+      setCurrentInfo(nextInterface);
+    }
+    //dispatch(setLastInterface(useSelector(state => state.answers.currentInfoPrincipalPage)));
   }
 
   /*
@@ -41,33 +61,35 @@ export default function Home() {
   */
 
   const calculate = (key) => {
+    let sessionSystemSelected = null;
     if (currentInfo == 1) {
-      return 2;
+      sessionSystemSelected = 2;
     }
     else if (currentInfo == 2) {
       if (key == 0) {
-        return 2;
+        sessionSystemSelected = 2;
       }
       else {
-        return 3;
+        sessionSystemSelected = 3;
       }
     }
     else if (currentInfo == 3) {
       if (key == 0) {
-        return 1;
+        sessionSystemSelected = 1;
       }
       else {
-        return 2;
+        sessionSystemSelected = 2;
       }
     }
     else {
       if (key == 0) {
-        return 2;
+        sessionSystemSelected = 2;
       }
       else {
-        return 1;
+        sessionSystemSelected = 1;
       }
     }
+    dispatch(setSessionTime(sessionSystemSelected));
   }
 
   return (
@@ -85,25 +107,25 @@ export default function Home() {
                 () => {
                   if (currentInfo == 0) {
                     if (index == 1 || index == 2) {
-                      router.push(button.nextInterface);
+                      changeInterface(button.nextInterface, true);
                     }
                     else {
-                      setCurrentInfo(button.nextInterface);
+                      changeInterface(button.nextInterface, false);
                     }
                   }
                   else if (currentInfo == 1) {
                     if (index == 2) {
-                      router.push(button.nextInterface);
+                      changeInterface(button.nextInterface, true);
                     }
                     else {
-                      setCurrentInfo(button.nextInterface);
+                      changeInterface(button.nextInterface, false);
                     }
                   }
                   else if (currentInfo == 4) {
-                    setCurrentInfo(button.nextInterface);
+                    changeInterface(button.nextInterface, false);
                   }
                   else {
-                    router.push(button.nextInterface);
+                    changeInterface(button.nextInterface, true);
                   }
                 }} />
             ))}

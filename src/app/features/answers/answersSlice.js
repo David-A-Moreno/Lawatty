@@ -1,26 +1,41 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  value: 0,
+  lastInterface: 7,
+  currentInfoPrincipalPage: 0,
+  sessionTime: 1,
+  timeSystem: null,
+  book: null,
+  bookPage: null
 }
 
 export const answersSlice = createSlice({
     name: 'answers',
     initialState,
     reducers: {
-      increment: (state) => {
-        state.value += 1
+      setLastInterface: (state, action) => {
+        state.lastInterface = action.payload
       },
-      decrement: (state) => {
-        state.value -= 1
+      setSessionTime: (state, action) => {
+        state.sessionTime = action.payload
       },
-      incrementByAmount: (state, action) => {
-        state.value += action.payload
+      setTimeSystem: (state, action) => {
+        state.timeSystem = action.payload
       },
+      setBook: (state, action) => {
+        state.book = action.payload
+      },
+      setBookPage: (state, action) => {
+        state.bookPage = action.payload
+      },
+      setCurrentInfoPrincipalPage: (state, action) => {
+        state.currentInfoPrincipalPage = action.payload
+      }
     },
   })
   
   // Action creators are generated for each case reducer function
-  export const { increment, decrement, incrementByAmount } = answersSlice.actions
-  
+  export const {setLastInterface, setSessionTime, setTimeSystem, setBook, setBookPage
+  ,setCurrentInfoPrincipalPage} = answersSlice.actions
+
   export default answersSlice.reducer

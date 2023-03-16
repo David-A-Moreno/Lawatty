@@ -10,7 +10,7 @@ export default function Time() {
   return (
     <>
       <div className="flex justify-start mt-10 ml-8">
-        <ButtonBack texto={'Volver'} onClick={() => {router.push('/')}} />
+        <ButtonBack texto={'Volver'} onClick={() => {changeInterface(lastInterface, true);}} />
       </div>
       <section className="flex flex-col items-center ">
         <h1 className="mt-15 mb-7 font-bold w-auto text-5xl">¿Cuánto tiempo vas a estudiar?</h1>
