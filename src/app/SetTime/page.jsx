@@ -1,16 +1,31 @@
 'use client';
 import ButtonBack from "../components/buttonBack";
 import { useRouter } from 'next/navigation';
-
+import { useDispatch, useSelector } from "react-redux";
+import { setLastInterface } from "../features/answers/answersSlice";
 
 export default function Time() {
       
   const router = useRouter();
 
+  const dispatch = useDispatch();
+
+  const oldInterface = useSelector(state => state.answers.lastInterface);
+
+  const changeInterface = () => {
+    if (oldInterface != '/SetBook') {
+      router.push('/');
+    }
+    else {
+      router.push(oldInterface);
+    }
+    dispatch(setLastInterface('/SetTime'));
+  }
+
   return (
     <>
       <div className="flex justify-start mt-10 ml-8">
-        <ButtonBack texto={'Volver'} onClick={() => {changeInterface(lastInterface, true);}} />
+        <ButtonBack texto={'Volver'} onClick={() => {changeInterface();}} />
       </div>
       <section className="flex flex-col items-center ">
         <h1 className="mt-15 mb-7 font-bold w-auto text-5xl">¿Cuánto tiempo vas a estudiar?</h1>

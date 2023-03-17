@@ -2,17 +2,22 @@
 
 import Button from "./components/button.jsx"
 import ButtonBack from "./components/buttonBack.jsx";
-import { useState } from 'react';
+import React, { useEffect } from 'react';
 import { INFORMATION } from "./utilities/interfaceInformation.js";
 import { useRouter } from 'next/navigation';
 import { useSelector, useDispatch } from "react-redux";
 import { setLastInterface, setSessionTime, setCurrentInfoPrincipalPage } from "./features/answers/answersSlice.js";
 
+
 export default function Home() {
 
-  //const currentInfo = useSelector(state => state.answers.currentInfoPrincipalPage);
+  const dispatch = useDispatch();
 
-  const [currentInfo, setCurrentInfo] = useState(0);
+  const router = useRouter();
+
+  const currentInfo = useSelector(state => state.answers.currentInfoPrincipalPage);
+
+  const oldInterface = useSelector(state => state.answers.lastInterface);
 
   const title = INFORMATION[currentInfo].title;
 
@@ -20,19 +25,13 @@ export default function Home() {
 
   const goBackButton = INFORMATION[currentInfo].goBackButton;
 
-  const oldInterface = useSelector(state => state.answers.lastInterface);
-
-  const lastInterface = INFORMATION[currentInfo].lastInteface;
-
-  const router = useRouter();
-
-  const dispatch = useDispatch();
-
-  const sessionSystem = useSelector(state => state.answers.sessionTime)
+  useEffect(() => {
+    dispatch(setLastInterface(INFORMATION[currentInfo].lastInteface));  
+  })
 
   const setGoBackButton = () => {
     if (goBackButton) {
-      return <ButtonBack texto={'Volver'} onClick={() => {setCurrentInfo(lastInterface)}}/>;
+      return <ButtonBack texto={'Volver'} onClick={() => {changeInterface(oldInterface, false)}}/>;
     }
     return <div className="ml-8 w-32 h-12"></div>;
   }
@@ -40,11 +39,10 @@ export default function Home() {
   const changeInterface = (nextInterface, isNewPage) => {
     if (isNewPage) {
       router.push(nextInterface);
-    } else {
-      //dispatch(setCurrentInfoPrincipalPage(nextInterface));
-      setCurrentInfo(nextInterface);
+    } 
+    else {
+      dispatch(setCurrentInfoPrincipalPage(nextInterface));
     }
-    //dispatch(setLastInterface(useSelector(state => state.answers.currentInfoPrincipalPage)));
   }
 
   /*
@@ -60,42 +58,60 @@ export default function Home() {
     4) 15 minutos fijos de descanso cada hora.
   */
 
-  const calculate = (key) => {
-    let sessionSystemSelected = null;
-    if (currentInfo == 1) {
-      sessionSystemSelected = 2;
+  const updateInformation = (indexButton, nextInterface) => {
+    if (currentInfo == 0) {//Si estamos en la interfaz 0
+      if (indexButton == 1 || indexButton == 2) {//Si pulsamos en los botones 1 o 2
+        changeInterface(nextInterface, true);
+        if (indexButton == 1) { //Si pulsamos en el boton 1 (Sesion de lectura)
+          dispatch(setSessionTime(4)); //Se usara el sistema de tiempos 4
+        }
+      }
+      else {
+        changeInterface(nextInterface, false);
+      }
+    }
+    else if (currentInfo == 1) {
+      if (indexButton == 2) {
+        changeInterface(nextInterface, true);
+        dispatch(setSessionTime(2));
+      }
+      else {
+        changeInterface(nextInterface, false);
+      }
     }
     else if (currentInfo == 2) {
-      if (key == 0) {
-        sessionSystemSelected = 2;
+      if (indexButton == 0) {
+        dispatch(setSessionTime(2));
+      } else {
+        dispatch(setSessionTime(3));
       }
-      else {
-        sessionSystemSelected = 3;
-      }
+      changeInterface(nextInterface, true);
     }
-    else if (currentInfo == 3) {
-      if (key == 0) {
-        sessionSystemSelected = 1;
+    else if (currentInfo == 3){
+      if (indexButton == 0) {
+        dispatch(setSessionTime(1));
+      } else {
+        dispatch(setSessionTime(2));
       }
-      else {
-        sessionSystemSelected = 2;
-      }
+      changeInterface(nextInterface, true);
+    }
+    else if (currentInfo == 4) {
+      changeInterface(nextInterface, false);
     }
     else {
-      if (key == 0) {
-        sessionSystemSelected = 2;
+      if (indexButton == 0) {
+        dispatch(setSessionTime(2));
+      } else {
+        dispatch(setSessionTime(1));
       }
-      else {
-        sessionSystemSelected = 1;
-      }
+      changeInterface(nextInterface, true);
     }
-    dispatch(setSessionTime(sessionSystemSelected));
   }
 
   return (
     <>
         <div className="flex justify-start mt-10 ml-8">
-            {setGoBackButton()}
+          {setGoBackButton()}
         </div>
         <section className="flex flex-col items-center ">
           <h1 className="mt-15 mb-7 font-bold w-auto text-5xl">{title} </h1>
@@ -103,31 +119,7 @@ export default function Home() {
           <div className="flex flex-col gap-5 mb-5">
             {buttons.map((button, index) => (
               <Button key={index} texto={button.optionTitle} 
-              onClick={
-                () => {
-                  if (currentInfo == 0) {
-                    if (index == 1 || index == 2) {
-                      changeInterface(button.nextInterface, true);
-                    }
-                    else {
-                      changeInterface(button.nextInterface, false);
-                    }
-                  }
-                  else if (currentInfo == 1) {
-                    if (index == 2) {
-                      changeInterface(button.nextInterface, true);
-                    }
-                    else {
-                      changeInterface(button.nextInterface, false);
-                    }
-                  }
-                  else if (currentInfo == 4) {
-                    changeInterface(button.nextInterface, false);
-                  }
-                  else {
-                    changeInterface(button.nextInterface, true);
-                  }
-                }} />
+              onClick={() => {updateInformation(index, button.nextInterface)}} />
             ))}
           </div>
         </section>
