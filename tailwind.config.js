@@ -22,9 +22,14 @@ module.exports = {
         'purple-text': '#2C2738',
         'hover-color-button-back': '#256CD0',
         'click-color-button-back': '#205DB2',
-        'sky-blue': '#7A96BD'
+        'sky-blue': '#7A96BD',
+        'suspend-session-button-color': '#EC7373',
+        'hover-suspend-session-color':'#D64141',
+        'click-suspend-session-color':'#AF1F1F',
+        'rest-button-color': '#4ACD50',
+        'hover-rest-color': '#25AD2A',
+        'click-rest-color':'#108D15'
       },
-      
   },
   plugins: [],
 }

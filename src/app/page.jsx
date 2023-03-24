@@ -118,7 +118,7 @@ export default function Home() {
           <div className="w-96 mb-12 h-px border border-t border-solid border-gray-line p-0 mx-auto"></div>
           <div className="flex flex-col gap-5 mb-5">
             {buttons.map((button, index) => (
-              <Button key={index} texto={button.optionTitle} 
+              <Button key={index} texto={button.optionTitle} widht={80}
               onClick={() => {updateInformation(index, button.nextInterface)}} />
             ))}
           </div>
