@@ -13,6 +13,7 @@ module.exports = {
       colors: {
         black: colors.black,
         white: colors.white,
+        green: colors.green,
         transparent: 'transparent',
         current: 'currentColor',
         'gray-line': '#D9D9D9',

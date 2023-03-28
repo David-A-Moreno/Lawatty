@@ -6,7 +6,7 @@ import React, { useEffect } from 'react';
 import { INFORMATION } from "./utilities/interfaceInformation.js";
 import { useRouter } from 'next/navigation';
 import { useSelector, useDispatch } from "react-redux";
-import { setLastInterface, setSessionTime, setCurrentInfoPrincipalPage } from "./features/answers/answersSlice.js";
+import { setLastInterface, setSessionTime, setCurrentInfoPrincipalPage, setTimeSystem } from "./features/answers/answersSlice.js";
 
 
 export default function Home() {
@@ -63,7 +63,7 @@ export default function Home() {
       if (indexButton == 1 || indexButton == 2) {//Si pulsamos en los botones 1 o 2
         changeInterface(nextInterface, true);
         if (indexButton == 1) { //Si pulsamos en el boton 1 (Sesion de lectura)
-          dispatch(setSessionTime(4)); //Se usara el sistema de tiempos 4
+          dispatch(setTimeSystem(4)); //Se usara el sistema de tiempos 4
         }
       }
       else {
@@ -73,7 +73,7 @@ export default function Home() {
     else if (currentInfo == 1) {
       if (indexButton == 2) {
         changeInterface(nextInterface, true);
-        dispatch(setSessionTime(2));
+        dispatch(setTimeSystem(2));
       }
       else {
         changeInterface(nextInterface, false);
@@ -81,17 +81,17 @@ export default function Home() {
     }
     else if (currentInfo == 2) {
       if (indexButton == 0) {
-        dispatch(setSessionTime(2));
+        dispatch(setTimeSystem(2));
       } else {
-        dispatch(setSessionTime(3));
+        dispatch(setTimeSystem(3));
       }
       changeInterface(nextInterface, true);
     }
     else if (currentInfo == 3){
       if (indexButton == 0) {
-        dispatch(setSessionTime(1));
+        dispatch(setTimeSystem(1));
       } else {
-        dispatch(setSessionTime(2));
+        dispatch(setTimeSystem(2));
       }
       changeInterface(nextInterface, true);
     }
@@ -100,9 +100,9 @@ export default function Home() {
     }
     else {
       if (indexButton == 0) {
-        dispatch(setSessionTime(2));
+        dispatch(setTimeSystem(2));
       } else {
-        dispatch(setSessionTime(1));
+        dispatch(setTimeSystem(1));
       }
       changeInterface(nextInterface, true);
     }
